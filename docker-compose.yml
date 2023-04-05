@@ -1,0 +1,26 @@
+
+version: "3"
+services:
+  db:
+    image: mongo:5.0.7
+    container_name: product-manager
+    restart: always
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo --quiet | grep 1
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+ 
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    environment:
+      - MONGO_URI=mongodb://db/product-manager
+    ports:
+      - "3001:3001" # <--- Caso queira usar uma porta diferente, altere o número da esquerda.
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
