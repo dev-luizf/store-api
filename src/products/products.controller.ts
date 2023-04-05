@@ -32,15 +32,15 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     this.validateId(id);
     joiValidate(updateProductSchema, updateProductDto)
-    return this.productsService.update(id, updateProductDto);
+    await this.productsService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     this.validateId(id);
-    return this.productsService.remove(id);
+    await this.productsService.remove(id);
   }
 }
