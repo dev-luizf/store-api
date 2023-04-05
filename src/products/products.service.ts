@@ -28,8 +28,8 @@ export class ProductsService implements OnModuleInit {
   }
 
   async create(createProductDto: CreateProductDto) {
-    const product = await this.productModel.find(createProductDto);
-    if (product.length > 0) throw new NotFoundException('product already exists');
+    const product = await this.productModel.findOne(createProductDto);
+    if (product) throw new NotFoundException('product already exists');
     return this.productModel.create(createProductDto);
   }
 
