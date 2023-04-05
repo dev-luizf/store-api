@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -15,29 +15,35 @@ export class ProductsService implements OnModuleInit {
   async onModuleInit() {
     try {
       const products = await this.productModel.find();
-      if (products.length === 0) await this.productModel.insertMany(ProductsSeed);
+      if (products.length === 0) await this.productModel.create(ProductsSeed);
     } catch (error) {
       throw error;
     }
   }
 
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  async findOne(id: string) {
+    const product = await this.productModel.findById(id);
+    if (!product) throw new NotFoundException('product not found');
+    return product;
+  }
+
+  async create(createProductDto: CreateProductDto) {
+    const product = await this.productModel.find(createProductDto);
+    if (product.length > 0) throw new NotFoundException('product already exists');
+    return this.productModel.create(createProductDto);
   }
 
   findAll() {
-    return `This action returns all products`;
+    return this.productModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    await this.findOne(id);
+    return this.productModel.updateOne({ _id: id }, updateProductDto);
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string) {
+    await this.findOne(id);
+    return this.productModel.deleteOne({ _id: id });
   }
 }
