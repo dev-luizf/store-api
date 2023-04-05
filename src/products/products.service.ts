@@ -3,7 +3,7 @@ import { Model } from 'mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './interfaces/product.interface';                                
-import ProductsSeed from '../../seed';
+import ProductsSeed from '../seed';
 
 @Injectable()
 export class ProductsService implements OnModuleInit {

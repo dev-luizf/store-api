@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
-import ProductSeed from '../../seed';
+import ProductSeed from '../seed';
 import { Product } from './interfaces/product.interface';
 import { Model } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
