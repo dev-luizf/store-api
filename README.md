@@ -1,73 +1,75 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Store API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este é o backend de um aplicativo de loja e funciona como um CRUD, utilizando tecnologias como o NestJS, Joi e Mongoose. O projeto conta com validações, documentação com Swagger, Docker e testes unitários com Jest. Para mais detalhes, confira o [repositório principal](https://github.com/dev-luizf/store-app).
 
-## Description
+O deploy está disponível em: [https://product-manager.up.railway.app/](https://product-manager.up.railway.app/)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tecnologias utilizadas
 
-## Installation
+-   Node.js
+-   NestJS
+-   Joi
+-   Mongoose
+-  Docker
+- Swagger
 
-```bash
-$ npm install
-```
 
-## Running the app
+## Como rodar a API
 
-```bash
-# development
-$ npm run start
+Para rodar a API, você precisará ter o  [Docker](https://www.docker.com/)  instalado na sua máquina. Se preferir, também é possível rodar a aplicação sem ele, basta seguir as instruções na seção "Rodando sem Docker" e possuir o Node e MongoDB instalados na sua máquina.
 
-# watch mode
-$ npm run start:dev
+1.  Clone o repositório:
 
-# production mode
-$ npm run start:prod
-```
+`git clone https://github.com/dev-luizf/store-api.git`
 
-## Test
+2.  Entre na pasta do projeto:
 
-```bash
-# unit tests
-$ npm run test
+`cd store-api`
 
-# e2e tests
-$ npm run test:e2e
+3.  Crie um arquivo  `.env`  na raiz do projeto com url de conexão do mongo, exemplo:
 
-# test coverage
-$ npm run test:cov
-```
+`MONGO_URI="mongodb://localhost:27017/product-manager"`
 
-## Support
+5.  Rode o Docker Compose:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+`npm run compose:up`
 
-## Stay in touch
+4.  Acesse a API em  `http://localhost:3001`.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## [](https://github.com/dev-luizf/cpf-control#rodando-sem-docker)Rodando sem Docker
 
-## License
+Se você preferir não utilizar o Docker, siga as instruções abaixo.
 
-Nest is [MIT licensed](LICENSE).
+1.  Clone o repositório:
+
+`git clone https://github.com/dev-luizf/store-api.git`
+
+2.  Entre na pasta do projeto:
+
+`cd store-api`
+
+3.  Instale as dependências:
+
+`npm install`
+
+4.  Crie um arquivo  `.env`  na raiz do projeto com as seguintes variáveis:
+
+`MONGO_URI="mongodb://localhost:27017/product-manager"`
+
+6.  Inicie o servidor:
+
+`npm run start:dev`
+
+7.  Acesse a API em  `http://localhost:3001`.
+
+## [](https://github.com/dev-luizf/cpf-control#testes)Testes
+
+A API conta com testes unitários escritos com a biblioteca Jest (arquivos .spec.ts em "src/products")  que mockam a camada do banco de dados permitindo que os testes sejam executados de forma mais rápida e eficiente, sem a necessidade de interagir com um banco de dados real. Para roda-los, execute os seguinte comando:
+
+`npm run test`
+`npm run test:cov`
+
+## Documentação
+
+A documentação foi desenvolvida com Swagger e a patir do momento em que o projeto estiver rodando, é possível acessa-la em http://localhost:3001/api.
