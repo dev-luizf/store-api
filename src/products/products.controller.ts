@@ -1,10 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  BadRequestException,
+} from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { joiValidate } from 'src/utils/joiValidate';
-import { createProductSchema, updateProductSchema } from 'src/joi-schemas/product.joischema';
-import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  createProductSchema,
+  updateProductSchema,
+} from 'src/joi-schemas/product.joischema';
+import {
+  ApiBody,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import ProductsSeed from '../seed';
 
 @ApiTags('products')
@@ -39,7 +58,7 @@ export class ProductsController {
   })
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
-    joiValidate(createProductSchema, createProductDto)
+    joiValidate(createProductSchema, createProductDto);
     return this.productsService.create(createProductDto);
   }
 
@@ -108,9 +127,12 @@ export class ProductsController {
     },
   })
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
     this.validateId(id);
-    joiValidate(updateProductSchema, updateProductDto)
+    joiValidate(updateProductSchema, updateProductDto);
     await this.productsService.update(id, updateProductDto);
   }
 

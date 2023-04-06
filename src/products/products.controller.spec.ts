@@ -89,7 +89,9 @@ describe('ProductsController', () => {
 
   describe('delete', () => {
     it('deve excluir um produto existente', async () => {
-      jest.spyOn(service, 'remove').mockResolvedValue({ deletedCount: 1, acknowledged: true });
+      jest
+        .spyOn(service, 'remove')
+        .mockResolvedValue({ deletedCount: 1, acknowledged: true });
       await expect(
         controller.remove('63fc13c7b817f1ef5af52631'),
       ).resolves.not.toThrow();

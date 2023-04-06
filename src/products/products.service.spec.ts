@@ -6,20 +6,20 @@ import { Model } from 'mongoose';
 import { NotFoundException } from '@nestjs/common';
 
 const productList = [
-  { 
+  {
     _id: '63fc13c7b817f1ef5af52631',
     ...ProductSeed[0],
   },
   {
     _id: '63fc13c7b817f1ef5af52632',
     ...ProductSeed[1],
-  }
+  },
 ];
 const notFoundError = 'product not found';
 
 describe('ProductsService', () => {
   let service: ProductsService;
-  let model: Model<Product>
+  let model: Model<Product>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -64,9 +64,7 @@ describe('ProductsService', () => {
     });
 
     it('deve lançar um erro se o produto não for encontrado', async () => {
-      jest
-        .spyOn(model, 'findById')
-        .mockReturnValue(null);
+      jest.spyOn(model, 'findById').mockReturnValue(null);
       try {
         await service.findOne(productList[0]._id);
       } catch (error) {
@@ -86,9 +84,7 @@ describe('ProductsService', () => {
     });
 
     it('deve lançar um erro se o produto não for encontrado', async () => {
-      jest
-        .spyOn(model, 'findById')
-        .mockReturnValue(null);
+      jest.spyOn(model, 'findById').mockReturnValue(null);
       try {
         await service.update(product._id, product);
       } catch (error) {
@@ -100,15 +96,11 @@ describe('ProductsService', () => {
 
   describe('remove', () => {
     it('deve remover um produto', async () => {
-      await expect(
-        service.remove(productList[0]._id),
-      ).resolves.not.toThrow();
+      await expect(service.remove(productList[0]._id)).resolves.not.toThrow();
     });
 
     it('deve lançar um erro se o produto não for encontrado', async () => {
-      jest
-        .spyOn(model, 'findById')
-        .mockReturnValue(null);
+      jest.spyOn(model, 'findById').mockReturnValue(null);
       try {
         await service.remove(productList[0]._id);
       } catch (error) {
